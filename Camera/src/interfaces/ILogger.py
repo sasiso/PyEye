@@ -26,6 +26,7 @@ class LoggerStub(ILogger):
         pass
 
     def info(self, message):
+        return
         print(message)
 
     def warning(self, message):

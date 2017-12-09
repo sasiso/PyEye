@@ -1,4 +1,5 @@
 from application import Application
+from capture.pcwebcam import PCWebCam
 from interfaces import ILogger, IConfiguration, IAlert, ICamera, IDetection
 from interfaces.IAlert import AlertStub
 from interfaces.ICamera import CameraStub
@@ -11,7 +12,7 @@ if __name__ == '__main__':
 
     logger = LoggerStub()
     configuration = ConfigurationStub()
-    camera = CameraStub()
+    camera = PCWebCam()
     detection = DetectionStub()
     alert = AlertStub()
 

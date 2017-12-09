@@ -1,3 +1,9 @@
+from tempfile import NamedTemporaryFile
+from time import sleep
+import requests
+
+import cv2
+
 from interfaces import ICamera
 from interfaces import IConfiguration
 from interfaces import ILogger
@@ -32,15 +38,37 @@ class Application:
 
     def start(self):
         while not self._stop_requested():
+            sleep(1)
             current_image = self._camera.get_last_image()
+            self.post_image(current_image)
+            cv2.imshow('image', current_image)
+            # Display the resulting frame
+            cv2.waitKey(1)
             if self._detection.detect(self._last_image, current_image):
                 self._alert.alert()
             else:
                 self._logger.info("All good, Nothing detected")
+
+            self._last_image = current_image
         self._logger.info("Stopped loop..")
 
     def _stop_requested(self):
         return self._stop
+
+    def post_image(self,image):
+
+        try:
+            print ("shape is: ", image.shape)
+            import numpy
+            numpy.save("d:\image",image)
+
+            with open("d:\image.npy", 'rb') as f:
+                r = requests.post('http://localhost:8000', files={'image': f})
+                print(r.status_code, r.reason)
+        except Exception as  ex:
+            print (ex)
+            pass
+
 
     def stop(self):
         pass
