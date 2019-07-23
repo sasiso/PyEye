@@ -1,0 +1,3 @@
+*.pyc
+/external/Python35/*
+/Client/src/PyEyeApp/PyEyeApp/obj/*

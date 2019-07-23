@@ -1,6 +1,6 @@
 import abc
-from scipy.linalg import norm
-import cv2
+#from scipy.linalg import norm
+#import cv2
 from scipy import sum
 from scipy.ndimage.filters import sobel
 from skimage.filters.edges import roberts

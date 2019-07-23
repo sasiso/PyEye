@@ -29,10 +29,19 @@ class HttpHandler(BaseHTTPRequestHandler):
             filename = form['image'].filename
             with open("d:\\f.npy", 'wb') as f:
                 f.write(file_data)
-            array = np.load("d:\\f.npy")
+            img = np.load("d:\\f.npy")
+            img.shape = (512, 512, 3)
 
-            array.shape = (480, 640)
-            cv2.imshow("t1", array)
+            face_cascade = cv2.CascadeClassifier('D:\\Projects\\PyEye\Server\\src\\haarcascade_upperbody.xml')
+            gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+            faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+            for (x, y, w, h) in faces:
+                cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+
+            cv2.imwrite("d:\\img.jpg",img)
+            cv2.imshow("t1", img)
             cv2.waitKey(1)
 
 

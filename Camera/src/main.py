@@ -1,19 +1,19 @@
 from application import Application
-from capture.pcwebcam import PCWebCam
-from interfaces import ILogger, IConfiguration, IAlert, ICamera, IDetection
+from capture import camera_factor
+from capture.camera_factor import get_camera
+
 from interfaces.IAlert import AlertStub
 from interfaces.ICamera import CameraStub
-from interfaces.IConfiguration import ConfigurationStub
-from interfaces.IDetection import DetectionStub
+
 from interfaces.ILogger import LoggerStub
 
 if __name__ == '__main__':
     print("Welcome to PyEye Camera, Staring for you...")
 
     logger = LoggerStub()
-    configuration = ConfigurationStub()
-    camera = PCWebCam()
-    detection = DetectionStub()
+    configuration = None
+    camera = get_camera(camera_factor.stubbed_camera)
+    detection = None
     alert = AlertStub()
 
     application = Application(logger=logger,
